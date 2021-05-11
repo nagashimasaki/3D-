@@ -470,8 +470,8 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 434709121}
-  - {fileID: 1453572081}
   - {fileID: 1559767606}
+  - {fileID: 1453572081}
   - {fileID: 1466246025}
   - {fileID: 2067894202}
   - {fileID: 1136974508}
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa46e48f9b6c9e48910299ba779b687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObj: {fileID: 2449981438408864042}
+  playerController: {fileID: 2449981438408864047}
 --- !u!1001 &1054546211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -867,7 +867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889861721281644, guid: bbb0ac67dc34f944785228d04e038485, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4889861721281644, guid: bbb0ac67dc34f944785228d04e038485, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1001,9 +1001,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterProDaytime
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
+      propertyPath: m_TagString
+      value: Water
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
       propertyPath: m_LocalScale.x
@@ -2147,6 +2151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   fallSpeed: 15
+  inWater: 0
 --- !u!1 &2449981438408879710
 GameObject:
   m_ObjectHideFlags: 0
