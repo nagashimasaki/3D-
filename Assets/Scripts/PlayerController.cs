@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,12 +22,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("水しぶきのSE")]
     private AudioClip splashSE = null;
 
+    [SerializeField]
+    private Text txtScore;
+
+
     private Rigidbody rb;
 
     private float x;
     private float z;
 
-    private int score;      // 花輪を通過した際の得点の合計値管理用
+    // 花輪を通過した際の得点の合計値管理用
+    private int score;      
 
 
     // 頭を下(水面方向)に向ける際の回転角度の値
@@ -98,7 +104,10 @@ public class PlayerController : MonoBehaviour
             score += col.transform.parent.GetComponent<FlowerCircle>().point;
 
             // 文字列に追加して int 型や float 型の情報を表示する場合には、ToString()メソッドを省略できます
-            Debug.Log("現在の得点 : " + score);　　　
+            Debug.Log("現在の得点 : " + score);
+
+            // 画面に表示されている得点表示を更新
+            txtScore.text = score.ToString();
 
             // TODO 画面に表示されている得点表示を更新する処理を追加する
 
