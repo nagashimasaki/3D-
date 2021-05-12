@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     private float x;
     private float z;
 
+    private int score;      // 花輪を通過した際の得点の合計値管理用
+
+
     // 頭を下(水面方向)に向ける際の回転角度の値
     private Vector3 straightRotation = new Vector3(180, 0, 0);     
 
@@ -83,6 +86,22 @@ public class PlayerController : MonoBehaviour
             // StartCoroutine(呼び出すコルーチン・メソッドの名前(引数))　の書式で記述する
             // コルーチンメソッドである OutOfWater メソッドを呼び出す
             StartCoroutine(OutOfWater());                            　
+        }
+
+        // 侵入したゲームオブジェクトの Tag が FlowerCircle なら
+        if (col.gameObject.tag == "FlowerCircle")
+        {
+
+            Debug.Log("花輪ゲット");
+
+            // 侵入した FlowerCircle Tag を持つゲームオブジェクト(Collider)の親オブジェクト(FlowerCircle)にアタッチされている FlowerCircle スクリプトを取得して、point 変数を参照し、得点を加算する
+            score += col.transform.parent.GetComponent<FlowerCircle>().point;
+
+            // 文字列に追加して int 型や float 型の情報を表示する場合には、ToString()メソッドを省略できます
+            Debug.Log("現在の得点 : " + score);　　　
+
+            // TODO 画面に表示されている得点表示を更新する処理を追加する
+
         }
     }
 

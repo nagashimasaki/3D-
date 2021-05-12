@@ -5,6 +5,9 @@ using DG.Tweening;
 
 public class FlowerCircle : MonoBehaviour
 {
+    [Header("花輪通過時の得点")]
+    public int point;
+
     void Start()
     {
 
