@@ -14,6 +14,12 @@ public class PlayerController : MonoBehaviour
     [Header("着水判定用。trueなら着水済")]
     public bool inWater;
 
+    [SerializeField,Header("水しぶきのエフェクト")]
+    private GameObject splashEffectPrefab = null;
+
+    [SerializeField, Header("水しぶきのSE")]
+    private AudioClip splashSE = null;
+
     private Rigidbody rb;
 
     private float x;
@@ -33,14 +39,14 @@ public class PlayerController : MonoBehaviour
         z = Input.GetAxis("Vertical");
 
         // キー入力の確認
-        Debug.Log(x);
-        Debug.Log(z);
+        //Debug.Log(x);
+        //Debug.Log(z);
 
         // velocity(速度)に新しい値を代入して移動
         rb.velocity = new Vector3(x * moveSpeed, -fallSpeed, z * moveSpeed);
 
         // velocityの値の確認
-        Debug.Log(rb.velocity);
+        //Debug.Log(rb.velocity);
     }
 
     /// <summary>
@@ -55,8 +61,17 @@ public class PlayerController : MonoBehaviour
             //着水状態に変更
             inWater = true;
 
-            //T0D0 水しぶきのエフェクトを生成
-            Debug.Log(":" + inWater);
+            //水しぶきのエフェクトを生成して、生成された水しぶきのエフェクトを effect 変数に代入する
+            GameObject effect = Instantiate(splashEffectPrefab, transform.position, Quaternion.identity);
+
+            //effect 変数を利用して、エフェクトの位置を調整する
+            effect.transform.position = new Vector3(effect.transform.position.x, effect.transform.position.y, effect.transform.position.z - 0.5f);
+
+            //effect 変数を利用して、エフェクトを2秒後に破壊
+            Destroy(effect, 2.0f);
+
+            // 水しぶきのSEを再生
+            AudioSource.PlayClipAtPoint(splashSE, transform.position);
         }
     }
 }
