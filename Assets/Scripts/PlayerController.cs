@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,10 +26,16 @@ public class PlayerController : MonoBehaviour
     private float x;
     private float z;
 
+    // 頭を下(水面方向)に向ける際の回転角度の値
+    private Vector3 straightRotation = new Vector3(180, 0, 0);     
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // 初期の姿勢を設定(頭を水面方向に向ける)
+        transform.eulerAngles = straightRotation;　　　
+
     }
 
     void FixedUpdate()
@@ -39,14 +46,14 @@ public class PlayerController : MonoBehaviour
         z = Input.GetAxis("Vertical");
 
         // キー入力の確認
-        //Debug.Log(x);
-        //Debug.Log(z);
+        // Debug.Log(x);
+        // Debug.Log(z);
 
         // velocity(速度)に新しい値を代入して移動
         rb.velocity = new Vector3(x * moveSpeed, -fallSpeed, z * moveSpeed);
 
         // velocityの値の確認
-        //Debug.Log(rb.velocity);
+        // Debug.Log(rb.velocity);
     }
 
     /// <summary>
@@ -55,23 +62,48 @@ public class PlayerController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider col)
     {
-        //通過したゲームオブジェクトのTagが Water であり、かつ、 inWater が false（未着水）であるなら
+        // 通過したゲームオブジェクトのTagが Water であり、かつ、 inWater が false（未着水）であるなら
         if (col.gameObject.tag == "Water" && inWater == false) 
         {
-            //着水状態に変更
+            // 着水状態に変更
             inWater = true;
 
-            //水しぶきのエフェクトを生成して、生成された水しぶきのエフェクトを effect 変数に代入する
+            // 水しぶきのエフェクトを生成して、生成された水しぶきのエフェクトを effect 変数に代入する
             GameObject effect = Instantiate(splashEffectPrefab, transform.position, Quaternion.identity);
 
-            //effect 変数を利用して、エフェクトの位置を調整する
+            // effect 変数を利用して、エフェクトの位置を調整する
             effect.transform.position = new Vector3(effect.transform.position.x, effect.transform.position.y, effect.transform.position.z - 0.5f);
 
-            //effect 変数を利用して、エフェクトを2秒後に破壊
+            // effect 変数を利用して、エフェクトを2秒後に破壊
             Destroy(effect, 2.0f);
 
             // 水しぶきのSEを再生
             AudioSource.PlayClipAtPoint(splashSE, transform.position);
+
+            // StartCoroutine(呼び出すコルーチン・メソッドの名前(引数))　の書式で記述する
+            // コルーチンメソッドである OutOfWater メソッドを呼び出す
+            StartCoroutine(OutOfWater());                            　
         }
     }
+
+    /// <summary>
+    /// 水面に顔を出す
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator OutOfWater()
+    {
+        // yield による処理。yield return new WaitForSecondsメソッドは、引数で指定した秒数だけ次の処理へ移らずに処理を一時停止する処理
+        // １秒待つ
+        yield return new WaitForSeconds(1.0f);    
+
+        // Rigidbody コンポーネントの IsKinematic にスイッチを入れてキャラの操作を停止する
+        rb.isKinematic = true;
+
+        // キャラの姿勢（回転）を変更する
+        transform.eulerAngles = new Vector3(-30, 180, 0);
+
+        // DOTweenを利用して、１秒かけて水中から水面へとキャラを移動させる
+        transform.DOMoveY(4.7f, 1.0f);
+    }
+
 }
