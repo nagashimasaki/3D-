@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Text txtScore;
 
-
     private Rigidbody rb;
 
     private float x;
@@ -36,8 +35,8 @@ public class PlayerController : MonoBehaviour
 
 
     // 頭を下(水面方向)に向ける際の回転角度の値
-    private Vector3 straightRotation = new Vector3(180, 0, 0);     
-
+    private Vector3 straightRotation = new Vector3(180, 0, 0);
+                
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -49,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         // キー入力の受付
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
@@ -95,7 +93,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 侵入したゲームオブジェクトの Tag が FlowerCircle なら
-        if (col.gameObject.tag == "FlowerCircle")
+        if (col.gameObject.tag == "FlowerCircle") 
         {
 
             Debug.Log("花輪ゲット");
