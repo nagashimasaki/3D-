@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform goal = null;       // ゴール地点(水面)の位置情報
+
+    //距離の値を受け取って更新するためのコンポーネントを代入する
+    [SerializeField]
+    private Text txtDistance;
 
     private float distance;              // キャラと水面までの距離の計測用
 
@@ -42,7 +47,10 @@ public class GameManager : MonoBehaviour
         }
 
         // Consoleビューに距離を表示する
-        Debug.Log(distance.ToString("F2"));
+        //Debug.Log(distance.ToString("F2"));
+
+        //
+        txtDistance.text = distance.ToString("F2");
 
     }
 }
