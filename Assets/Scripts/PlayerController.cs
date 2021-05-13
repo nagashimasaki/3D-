@@ -28,6 +28,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Button btnChangeAttitude;
 
+    [SerializeField]
+    private Image imgGauge;
+
+    // 姿勢変更が可能になるまでの計測用タイマー
+    private float attitudeTimer;
+
+    // 姿勢変更が可能になるまでのチャージ(待機)時間
+    private float chargeTime = 2.0f;                              
+
     //イーナム型
     // キャラの状態の種類
     public enum AttitudeType
@@ -167,6 +176,44 @@ public class PlayerController : MonoBehaviour
 
             // 姿勢の変更
             ChangeAttitude();
+        }
+
+        // 姿勢が普通の状態
+        if (attitudeType == AttitudeType.Straight)
+        {
+
+            // タイマーを加算する = チャージを行う
+            attitudeTimer += Time.deltaTime;
+
+            // ゲージ表示を更新
+            imgGauge.DOFillAmount(attitudeTimer / chargeTime, 0.1f);
+
+            // タイマーがチャージ時間(満タン)になったら
+            if (attitudeTimer >= chargeTime)
+            {
+
+                // タイマーの値をチャージの時間で止めるようにする
+                attitudeTimer = chargeTime;
+            }
+        }
+
+        // 姿勢が伏せの状態
+        if (attitudeType == AttitudeType.Prone)
+        {
+
+            // タイマーを減算する = チャージを減らす
+            attitudeTimer -= Time.deltaTime;
+
+            // ゲージ表示を更新
+            imgGauge.DOFillAmount(attitudeTimer / chargeTime, 0.1f);
+
+            // タイマー(チャージ)が 0 以下になったら
+            if (attitudeTimer <= 0)
+            {
+
+                // タイマーをリセットして、再度計測できる状態にする
+                attitudeTimer = 0;
+            }
         }
     }
 
