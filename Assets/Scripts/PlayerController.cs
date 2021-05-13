@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Image imgGauge;
 
+    // チャージ完了判定用。false は未完了(チャージ中)、true はチャージ完了
+    private bool isCharge;                                         
+
     // 姿勢変更が可能になるまでの計測用タイマー
     private float attitudeTimer;
 
@@ -79,6 +82,8 @@ public class PlayerController : MonoBehaviour
         // ボタンのOnClickイベントに ChangeAttitude メソッドを追加する
         btnChangeAttitude.onClick.AddListener(ChangeAttitude);
 
+        // ボタンを非活性化(半透明で押せない状態)
+        btnChangeAttitude.interactable = false;
     }
 
     void FixedUpdate()
@@ -178,8 +183,8 @@ public class PlayerController : MonoBehaviour
             ChangeAttitude();
         }
 
-        // 姿勢が普通の状態
-        if (attitudeType == AttitudeType.Straight)
+        // // チャージ完了状態ではなく、姿勢が普通の状態
+        if (isCharge == false && attitudeType == AttitudeType.Straight)
         {
 
             // タイマーを加算する = チャージを行う
@@ -188,12 +193,22 @@ public class PlayerController : MonoBehaviour
             // ゲージ表示を更新
             imgGauge.DOFillAmount(attitudeTimer / chargeTime, 0.1f);
 
+            // ボタンを非活性化(半透明で押せない状態)
+            btnChangeAttitude.interactable = false;
+
             // タイマーがチャージ時間(満タン)になったら
             if (attitudeTimer >= chargeTime)
             {
-
                 // タイマーの値をチャージの時間で止めるようにする
                 attitudeTimer = chargeTime;
+
+                // チャージ状態にする
+                isCharge = true;
+
+                // ボタンを活性化(押せる状態)
+                btnChangeAttitude.interactable = true;
+
+
             }
         }
 
@@ -210,9 +225,14 @@ public class PlayerController : MonoBehaviour
             // タイマー(チャージ)が 0 以下になったら
             if (attitudeTimer <= 0)
             {
-
                 // タイマーをリセットして、再度計測できる状態にする
                 attitudeTimer = 0;
+
+                // ボタンを非活性化(半透明で押せない状態)
+                btnChangeAttitude.interactable = false;
+
+                // 強制的に姿勢を直滑降に戻す
+                ChangeAttitude();
             }
         }
     }
@@ -229,6 +249,17 @@ public class PlayerController : MonoBehaviour
 
             // 現在の姿勢が「直滑降」だったら
             case AttitudeType.Straight:
+
+                // 未チャージ状態(チャージ中)なら
+                if (isCharge == false)
+                {
+
+                    // 以降の処理を行わない = 未チャージ状態なので、チャージ時の処理を行えないようにする
+                    return;
+                }
+
+                // チャージ状態を未チャージ状態にする
+                isCharge = false;
 
                 // 現在の姿勢を「伏せ」に変更
                 attitudeType = AttitudeType.Prone;
