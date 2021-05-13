@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Text txtScore;
 
+    [SerializeField]
+    private Button btnChangeAttitude;
+
+    //イーナム型
     // キャラの状態の種類
     public enum AttitudeType
     {
@@ -62,6 +66,9 @@ public class PlayerController : MonoBehaviour
 
         // 現在の姿勢を「直滑降」に変更(いままでの姿勢)
         attitudeType = AttitudeType.Straight;
+
+        // ボタンのOnClickイベントに ChangeAttitude メソッドを追加する
+        btnChangeAttitude.onClick.AddListener(ChangeAttitude);
 
     }
 
@@ -185,6 +192,9 @@ public class PlayerController : MonoBehaviour
                 // 空気抵抗の値を上げて落下速度を遅くする
                 rb.drag = 25.0f;
 
+                // ボタンの子オブジェクトの画像を回転させる
+                btnChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 180), 0.25f);
+
                 // 処理を抜ける(次の case には処理が入らない)
                 break;
 
@@ -199,6 +209,9 @@ public class PlayerController : MonoBehaviour
 
                 // 空気抵抗の値を元に戻して落下速度を戻す
                 rb.drag = 0f;
+
+                // ボタンの子オブジェクトの画像を回転させる
+                btnChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 90), 0.25f);
 
                 // 処理を抜ける
                 break;
