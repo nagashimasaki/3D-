@@ -25,7 +25,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Text txtScore;
 
+    // キャラの状態の種類
+    public enum AttitudeType
+    {
+        // 直滑降(通常時)
+        Straight,
+
+        // 伏せ
+        Prone,          
+    }
+
+    [Header("現在のキャラの姿勢")]
+    public AttitudeType attitudeType;
+
     private Rigidbody rb;
+
+    // 伏せの姿勢の回転角度の値
+    private Vector3 proneRotation = new Vector3(-90, 0, 0);        
 
     private float x;
     private float z;
@@ -42,7 +58,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // 初期の姿勢を設定(頭を水面方向に向ける)
-        transform.eulerAngles = straightRotation;　　　
+        transform.eulerAngles = straightRotation;
+
+        // 現在の姿勢を「直滑降」に変更(いままでの姿勢)
+        attitudeType = AttitudeType.Straight;
 
     }
 
@@ -132,4 +151,57 @@ public class PlayerController : MonoBehaviour
         transform.DOMoveY(4.7f, 1.0f);
     }
 
+    void Update()
+    {
+
+        // スペースキーを押したら
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            // 姿勢の変更
+            ChangeAttitude();
+        }
+    }
+
+    /// <summary>
+    /// 姿勢の変更
+    /// </summary>
+    private void ChangeAttitude()
+    {
+
+        // 現在の姿勢に応じて姿勢を変更する
+        switch (attitudeType)
+        {
+
+            // 現在の姿勢が「直滑降」だったら
+            case AttitudeType.Straight:
+
+                // 現在の姿勢を「伏せ」に変更
+                attitudeType = AttitudeType.Prone;
+
+                // キャラを回転させて「伏せ」にする
+                transform.DORotate(proneRotation, 0.25f, RotateMode.WorldAxisAdd);
+
+                // 空気抵抗の値を上げて落下速度を遅くする
+                rb.drag = 25.0f;
+
+                // 処理を抜ける(次の case には処理が入らない)
+                break;
+
+            // 現在の姿勢が「伏せ」だったら
+            case AttitudeType.Prone:
+
+                // 現在の姿勢を「直滑降」に変更
+                attitudeType = AttitudeType.Straight;
+
+                // キャラを回転させて「直滑降」にする
+                transform.DORotate(straightRotation, 0.25f);
+
+                // 空気抵抗の値を元に戻して落下速度を戻す
+                rb.drag = 0f;
+
+                // 処理を抜ける
+                break;
+        }
+    }
 }

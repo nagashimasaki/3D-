@@ -3217,6 +3217,7 @@ MonoBehaviour:
     type: 3}
   splashSE: {fileID: 8300000, guid: a20eb3da93a74614e8a80046348d6947, type: 3}
   txtScore: {fileID: 666291400}
+  attitudeType: 0
 --- !u!1 &2449981438408879710
 GameObject:
   m_ObjectHideFlags: 0
