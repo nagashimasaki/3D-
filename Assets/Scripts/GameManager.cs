@@ -15,9 +15,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Text txtDistance;
 
-    private float distance;              // キャラと水面までの距離の計測用
+    [SerializeField]
+    private CameraController cameraController;
 
-    private bool isGoal;                 // ゴール判定用。距離が 0 以下になったらゴールと判定して true にする。false の間はゴールしていない状態(着水判定と同じ bool 型の利用方法)
+    // キャラと水面までの距離の計測用
+    private float distance;
+
+    // ゴール判定用。距離が 0 以下になったらゴールと判定して true にする。false の間はゴールしていない状態(着水判定と同じ bool 型の利用方法)
+    private bool isGoal;                
 
     void Update()
     {
@@ -49,8 +54,10 @@ public class GameManager : MonoBehaviour
         // Consoleビューに距離を表示する
         //Debug.Log(distance.ToString("F2"));
 
-        //
         txtDistance.text = distance.ToString("F2");
+
+        // カメラを初期のカメラに戻す
+        cameraController.SetDefaultCamera();
 
     }
 }

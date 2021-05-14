@@ -10,7 +10,6 @@ public class CameraController : MonoBehaviour
     private PlayerController playerController;
 
     // 一人称カメラの Camera コンポーネントの代入用
-
     [SerializeField]
     private Camera fpsCamera;
 

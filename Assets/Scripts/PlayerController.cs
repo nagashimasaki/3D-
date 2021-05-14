@@ -85,6 +85,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (inWater)
+        {　　// 条件式に bool 型の変数名を書いた場合、inWater == true を確認しているのと同じ条件になる
+            return;
+        }
 
         // キー入力の受付
         x = Input.GetAxis("Horizontal");
@@ -152,6 +156,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (inWater)
+        {
+            // ボタンを非活性化して押せない状態にする
+            btnChangeAttitude.interactable = false;
+            return;
+        }
 
         // スペースキーを押したら
         if (Input.GetKeyDown(KeyCode.Space))

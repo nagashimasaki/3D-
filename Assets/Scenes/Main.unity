@@ -1811,6 +1811,7 @@ MonoBehaviour:
   player: {fileID: 2449981438408864047}
   goal: {fileID: 1559767606}
   txtDistance: {fileID: 1822469849}
+  cameraController: {fileID: 963194229}
 --- !u!4 &1160541105
 Transform:
   m_ObjectHideFlags: 0
@@ -2536,7 +2537,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1667554748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1667554748
 MonoBehaviour:
   m_ObjectHideFlags: 0
