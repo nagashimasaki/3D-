@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Coffee.UIExtensions;     // ShinyEffectForUGUI を利用するために必要な宣言
 
 public class PlayerController : MonoBehaviour
 {
@@ -68,7 +69,10 @@ public class PlayerController : MonoBehaviour
 
     // 頭を下(水面方向)に向ける際の回転角度の値
     private Vector3 straightRotation = new Vector3(180, 0, 0);
-                
+
+    [SerializeField]
+    private ShinyEffectForUGUI shinyEffect;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -208,7 +212,8 @@ public class PlayerController : MonoBehaviour
                 // ボタンを活性化(押せる状態)
                 btnChangeAttitude.interactable = true;
 
-
+                // 満タン時のエフェクト
+                shinyEffect.Play(0.5f);
             }
         }
 
