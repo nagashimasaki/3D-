@@ -3726,13 +3726,12 @@ MonoBehaviour:
   moveSpeed: 10
   fallSpeed: 8
   inWater: 0
-  splashEffectPrefab: {fileID: 1722726733478836, guid: c1c88308ebb5d2541a282905b854ee4c,
-    type: 3}
+  attitudeType: 0
+  waterEffectPrefab: {fileID: 1559767607}
   splashSE: {fileID: 8300000, guid: a20eb3da93a74614e8a80046348d6947, type: 3}
   txtScore: {fileID: 666291400}
   btnChangeAttitude: {fileID: 1667554747}
   imgGauge: {fileID: 400565604}
-  attitudeType: 0
   shinyEffect: {fileID: 33273133}
 --- !u!1 &2449981438408879710
 GameObject:
