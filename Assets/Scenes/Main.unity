@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 458033054}
   m_Layer: 0
   m_Name: 'Collider '
-  m_TagString: 'FlowerCircle '
+  m_TagString: FlowerCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1130,7 +1130,7 @@ GameObject:
   - component: {fileID: 793474705}
   m_Layer: 0
   m_Name: 'FlowerCircle '
-  m_TagString: Untagged
+  m_TagString: 'FlowerCircle '
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4190,8 +4190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  fallSpeed: 8
+  fallSpeed: 15
   inWater: 0
+  playerState: 0
   attitudeType: 0
   waterEffectPrefab: {fileID: 1559767607}
   splashSE: {fileID: 8300000, guid: a20eb3da93a74614e8a80046348d6947, type: 3}

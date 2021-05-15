@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Shootable
   - Water
-  - 'FlowerCircle '
+  - FlowerCircle
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,14 @@ public class PlayerController : MonoBehaviour
     [Header("着水判定用。trueなら着水済")]
     public bool inWater;
 
+    public enum プレイヤーステート
+    {
+        空中,
+        水中,
+    }
+
+    public プレイヤーステート playerState;
+
     // キャラの状態の種類
     public enum AttitudeType
     {
@@ -25,7 +33,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("現在のキャラの姿勢")]
     public AttitudeType attitudeType;
-
 
     private Rigidbody rb;
 
@@ -101,11 +108,10 @@ public class PlayerController : MonoBehaviour
     // IsTriggerがオンのコライダーを持つゲームオブジェクトを通過した場合に呼び出されるメソッド
     private void OnTriggerEnter(Collider col)
     {
-
+        Debug.Log("反応");
         // 通過したゲームオブジェクトのTagが Water であり、かつ、isWater が false(未着水)であるなら
         if (col.gameObject.tag == "Water" && inWater == false)
         {
-
             // 着水状態に変更する
             inWater = true;
 
@@ -124,15 +130,15 @@ public class PlayerController : MonoBehaviour
         }
 
         // 侵入したゲームオブジェクトの Tag が FlowerCircle なら
-        if (col.gameObject.tag == "FlowerCircle")
+        if (col.CompareTag("FlowerCircle"))
         {
-
             // 侵入した FlowerCircle Tag を持つゲームオブジェクト(Collider)の親オブジェクト(FlowerCircle)にアタッチされている FlowerCircle スクリプトを取得して、point 変数を参照し、得点を加算する
             score += col.transform.parent.GetComponent<FlowerCircle>().point;
 
             // 画面に表示されている得点表示を更新
             txtScore.text = score.ToString();
         }
+        Debug.Log("終わり");
     }
 
     /// <summary>
