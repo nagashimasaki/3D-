@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ResultPopUp resultPopUp;
 
+    [SerializeField]
+    private AudioManager audioManager;
+
     // キャラと水面までの距離の計測用
     private float distance;
 
@@ -32,7 +35,6 @@ public class GameManager : MonoBehaviour
         // 距離が 0 以下になったらゴールしたと判定して距離の計算は行わないようにする
         if (isGoal == true)
         {
-
             // return があると、この処理よりも下の処理は処理されない
             return;
         }
@@ -40,10 +42,13 @@ public class GameManager : MonoBehaviour
         // Y軸が高さの情報なので、双方の高さの値を減算して差分値を距離とする
         distance = player.transform.position.y - goal.position.y;
 
+        // Consoleビューに距離を表示する
+        //Debug.Log(distance.ToString("F2"));
+        txtDistance.text = distance.ToString("F2");
+
         // 距離が 0 以下になったら
         if (distance <= 0)
         {
-
             // 距離が 0 以下になったので、ゴールと判定する
             isGoal = true;
 
@@ -56,9 +61,8 @@ public class GameManager : MonoBehaviour
             // リザルト表示
             resultPopUp.DisplayResult();
 
+            // ゲームクリアのBGMを再生する
+            audioManager.PlayBGM(AudioManager.BgmType.GameClear);
         }
-        // Consoleビューに距離を表示する
-        //Debug.Log(distance.ToString("F2"));
-        txtDistance.text = distance.ToString("F2");
     }
 }
