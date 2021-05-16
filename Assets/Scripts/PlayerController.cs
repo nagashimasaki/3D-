@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private ShinyEffectForUGUI shinyEffect;
 
+    [SerializeField]
+    private Transform limitLeftBottom;　　　　// 画面左下のゲームオブジェクトの位置情報
+
+    [SerializeField]
+    private Transform limitRightTop;          // 画面右上のゲームオブジェクトの位置情報
 
     void Start()
     {
@@ -168,6 +173,9 @@ public class PlayerController : MonoBehaviour
             btnChangeAttitude.interactable = false;
             return;
         }
+
+        // 移動範囲内か確認
+        LimitMoveArea();
 
         // スペースキーを押したら
         if (Input.GetKeyDown(KeyCode.Space))
@@ -297,5 +305,21 @@ public class PlayerController : MonoBehaviour
                 // 処理を抜ける
                 break;
         }
+    }
+
+    /// <summary>
+    /// 移動範囲の確認と制限
+    /// </summary>
+    private void LimitMoveArea()
+    {
+
+        // 現在のXの位置が移動範囲内に収まっているか確認し、超えていた場合には下限(左端)か上限(右端)に合わせる
+        float limitX = Mathf.Clamp(transform.position.x, limitLeftBottom.position.x, limitRightTop.position.x);
+
+        // 現在のZの位置が移動範囲内に収まっているか確認し、超えていた場合には下限(手前側)か上限(奥側)に合わせる
+        float limitZ = Mathf.Clamp(transform.position.z, limitLeftBottom.position.z, limitRightTop.position.z);
+
+        // 制限値内になるように位置情報を更新
+        transform.position = new Vector3(limitX, transform.position.y, limitZ);
     }
 }
