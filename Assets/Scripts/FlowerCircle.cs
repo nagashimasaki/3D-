@@ -14,10 +14,30 @@ public class FlowerCircle : MonoBehaviour
     [SerializeField]
     private GameObject effectPrefab;
 
+    // 通過時と獲得時で２回別々のSEを鳴らしたい場合には変数を２つ用意する
+    [SerializeField]
+    private AudioClip flowerSE;　　
+
+    [SerializeField, Header("移動させる場合スイッチ入れる")]
+    private bool isMoveing;
+
+    [SerializeField, Header("移動時間")]
+    private float duration;
+
+    [SerializeField, Header("移動距離")]
+    private float moveDistance;
+
     void Start()
     {
         // アタッチしたゲームオブジェクト(花輪)を回転させる
         transform.DORotate(new Vector3(0, 360, 0), 5.0f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+
+        // この花輪が移動する花輪の設定なら
+        if (isMoveing)
+        {
+            // 前後にループ移動させる
+            transform.DOMoveZ(transform.position.z + moveDistance, duration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        }
     }
 
     /// <summary>
@@ -26,6 +46,11 @@ public class FlowerCircle : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
+        // 水面に触れても通過判定は行わない
+        if (other.gameObject.tag == "Water")
+        {
+            return;
+        }
 
         // 花輪の BoxCollider のスイッチをオフにして重複判定を防止
         boxCollider.enabled = false;
@@ -44,6 +69,8 @@ public class FlowerCircle : MonoBehaviour
     /// </summary>
     private IEnumerator PlayGetEffect()
     {
+        // ①SE再生
+        AudioSource.PlayClipAtPoint(flowerSE, transform.position);
 
         // DOTween の Sequence を宣言して利用できるようにする
         Sequence sequence = DOTween.Sequence();
@@ -65,6 +92,9 @@ public class FlowerCircle : MonoBehaviour
 
         // 1秒後にエフェクトを破棄(すぐに破棄するとエフェクトがすべて再生されないため)
         Destroy(effect, 1.0f);
+
+        // ②SE再生
+        AudioSource.PlayClipAtPoint(flowerSE, transform.position);
 
         // 花輪を1秒後に破棄
         Destroy(gameObject, 1.0f);
