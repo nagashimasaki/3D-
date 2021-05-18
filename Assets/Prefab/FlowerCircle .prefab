@@ -183,6 +183,17 @@ MonoBehaviour:
   isMoveing: 1
   duration: 3
   moveDistance: 5
+  randomMovingPercent: 40
+  durationRange: {x: 2, y: 5}
+  moveDistanceRange: {x: 3, y: 8}
+  flowerSizes:
+  - 1.5
+  - 0.75
+  - 0.5
+  pointRate:
+  - 0.7
+  - 1.5
+  - 3
 --- !u!54 &674779778529561974
 Rigidbody:
   m_ObjectHideFlags: 0

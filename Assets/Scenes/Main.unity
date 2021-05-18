@@ -2862,6 +2862,13 @@ MonoBehaviour:
   cameraController: {fileID: 963194229}
   resultPopUp: {fileID: 170511965}
   audioManager: {fileID: 1867420968}
+  isRandomStaging: 1
+  movingFlowerCirclePercent: 50
+  scalingFlowerCirclePercent: 50
+  flowerCirclePrefab: {fileID: 674779778529561975, guid: 3a8607b14789ec0458f5b365f41f97de,
+    type: 3}
+  limitLeftBottom: {fileID: 1812836302}
+  limitRightTop: {fileID: 109761844}
 --- !u!4 &1160541105
 Transform:
   m_ObjectHideFlags: 0
@@ -3188,7 +3195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1439610671
 Transform:
   m_ObjectHideFlags: 0
@@ -5837,7 +5844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  fallSpeed: 10
+  fallSpeed: 5
   inWater: 0
   playerState: 0
   attitudeType: 0
