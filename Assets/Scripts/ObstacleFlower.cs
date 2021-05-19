@@ -8,6 +8,9 @@ public class ObstacleFlower : MonoBehaviour
     private Animator anim;
     private BoxCollider boxCol;
 
+    [SerializeField, Header("障害物に食べられた時のSE")]
+    private AudioClip obstacleSE = null;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -16,6 +19,9 @@ public class ObstacleFlower : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
+
+        //障害物に食べられた時のSE
+        AudioSource.PlayClipAtPoint(obstacleSE, transform.position);
 
         // 指定されたタグのゲームオブジェクトが侵入した場合には、判定を行わない
         if (col.gameObject.tag == "Water" || col.gameObject.tag == "FlowerCircle")
@@ -28,7 +34,6 @@ public class ObstacleFlower : MonoBehaviour
         {
 
             // PlayerController クラスを取得出来た場合のみ、この if 文の中の処理が実行される
-
             // 食べる
             StartCoroutine(EatingTarget(player));
         }
@@ -45,7 +50,7 @@ public class ObstacleFlower : MonoBehaviour
         // コライダーをオフにして重複判定を防止する
         boxCol.enabled = false;
 
-        // キャラを口の中央に移動させる　　　　　　　//　<=　☆　この一連の処理(３行分)が、何故「キャラを口の中央に移動させる」処理になるのかを考えてみましょう！　☆
+        // キャラを口の中央に移動させる　　　　　　　
         player.transform.SetParent(transform);
         player.transform.localPosition = new Vector3(0, -2.0f, 0);
         player.transform.SetParent(null);

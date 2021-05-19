@@ -76,8 +76,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform limitRightTop;          // 画面右上のゲームオブジェクトの位置情報
 
-    void Start()
+    public void SetUpPlayer()
     {
+
         rb = GetComponent<Rigidbody>();
 
         // 初期の姿勢を設定(頭を水面方向に向ける)
@@ -129,6 +130,8 @@ public class PlayerController : MonoBehaviour
 
             // 水しぶきのSEを再生
             AudioSource.PlayClipAtPoint(splashSE, transform.position);
+
+            
 
             // コルーチンメソッドである OutOfWater メソッドを呼び出す
             StartCoroutine(OutOfWater());

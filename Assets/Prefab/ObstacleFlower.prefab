@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 6602475412942766164}
   - component: {fileID: 6602475412942766165}
   m_Layer: 0
-  m_Name: 'ObstacleFlower '
+  m_Name: ObstacleFlower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ef6ccee580bd04e868cc9b2885aa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleSE: {fileID: 8300000, guid: 09d1b46b2964a024bb909c91837f59a9, type: 3}
 --- !u!1 &6602475413930964377
 GameObject:
   m_ObjectHideFlags: 0

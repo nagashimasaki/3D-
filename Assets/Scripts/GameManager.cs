@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,8 +42,12 @@ public class GameManager : MonoBehaviour
     private Transform limitLeftBottom;　　　　　　　// キャラの移動制限用のオブジェクトを生成位置の制限にも利用する
 
     [SerializeField]
-    private Transform limitRightTop;　　　　　　　　// キャラの移動制限用のオブジェクトを生成位置の制限にも利用する
+    private Transform limitRightTop;        // キャラの移動制限用のオブジェクトを生成位置の制限にも利用する
 
+    [SerializeField]
+    private Slider sliderAltimeter;                 // Slider コンポーネントの操作を行うための変数
+
+    private float startPos;                         // ゲーム開始時のキャラの位置情報を代入するための変数
 
     // キャラと水面までの距離の計測用
     private float distance;
@@ -65,6 +70,9 @@ public class GameManager : MonoBehaviour
         // Consoleビューに距離を表示する
         //Debug.Log(distance.ToString("F2"));
         txtDistance.text = distance.ToString("F2");
+
+        // 高度計用のキャラのアイコンの位置を更新
+        sliderAltimeter.DOValue(distance / startPos, 0.1f);
 
         // 距離が 0 以下になったら
         if (distance <= 0)
@@ -89,6 +97,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Start()　　　　　　　　　// 戻り値が void ではないので注意
     {
+
+        // スタート地点取得
+        startPos = player.transform.position.y;
+
+        // Startメソッドの処理を別のメソッド化して、外部から実行する
+        player.SetUpPlayer();
+
+        // キャラの移動を一時停止(キー入力も受け付けない)
+        player.StopMove();
+
         // Updateを止める
         isGoal = true;
 
@@ -102,6 +120,10 @@ public class GameManager : MonoBehaviour
 
         // Updateを再開
         isGoal = false;
+
+        // キャラの移動を再開(キー入力受付開始)
+        player.ResumeMove();
+
         Debug.Log(isGoal);
     }
 

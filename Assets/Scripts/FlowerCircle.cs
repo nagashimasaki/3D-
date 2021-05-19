@@ -102,7 +102,7 @@ public class FlowerCircle : MonoBehaviour
         // エフェクトを生成して、Instantiate メソッドの戻り値を effect 変数に代入
         GameObject effect = Instantiate(effectPrefab, transform.position, Quaternion.identity);
 
-        // エフェクトの位置(高さ)を調整する　<=　☆　この高さの調整が必要な理由はなんだと思いますか？　一度、この処理をコメントアウトして、どのような違いが出るか確認してください。
+        // エフェクトの位置(高さ)を調整する　
         effect.transform.position = new Vector3(effect.transform.position.x, effect.transform.position.y - 1.5f, effect.transform.position.z);
 
         // 1秒後にエフェクトを破棄(すぐに破棄するとエフェクトがすべて再生されないため)
