@@ -145,5 +145,4 @@ public class GameManager : MonoBehaviour
         Debug.Log("ランダムステージ完成");
     }
 
-
 }
