@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
     private Button btnChangeAttitude;
 
     [SerializeField]
+    private GameObject altimeterChangeAttitude;
+
+    [SerializeField]
     private Image imgGauge;
 
     [SerializeField]
@@ -281,6 +284,8 @@ public class PlayerController : MonoBehaviour
                 // ボタンの子オブジェクトの画像を回転させる
                 btnChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 180), 0.25f);
 
+                altimeterChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 90), 0.25f);
+
                 // 伏せの状態に遷移するための条件を指定する  => idle から stan のアニメーションに遷移する
                 anim.SetBool("Prone", true);
 
@@ -301,6 +306,8 @@ public class PlayerController : MonoBehaviour
 
                 // ボタンの子オブジェクトの画像を回転させる
                 btnChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 90), 0.25f);
+
+                altimeterChangeAttitude.transform.GetChild(0).DORotate(new Vector3(0, 0, 180), 0.25f);
 
                 // 伏せの状態を止めるための遷移の条件を指定する => stan から idle に遷移する
                 anim.SetBool("Prone", false);
