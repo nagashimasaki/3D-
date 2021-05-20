@@ -375,4 +375,30 @@ public class PlayerController : MonoBehaviour
         // 画面のスコア表示を更新
         txtScore.text = score.ToString();
     }
+
+    /// <summary>
+    /// 落下速度を減衰させながら元に戻す
+    /// </summary>
+    /// <param name="airResistance"></param>
+    public void DampingDrag(float airResistance)
+    {
+
+        // 空気抵抗の値を更新
+        rb.drag = airResistance;
+
+        // 3 秒かけて空気抵抗の値を 0 にする
+        DOTween.To(() => rb.drag, (x) => rb.drag = x, 0, 3.0f)
+            .OnComplete(() => {
+
+                // DOTween.To メソッドの処理が終了したら呼ばれる処理
+
+                // もしも直滑降の姿勢でなければ
+                if (transform.rotation.x != 1)
+                {
+
+                    // 直滑降の姿勢に戻す
+                    transform.DORotate(straightRotation, 0.25f);
+                }
+            });
+    }
 }
