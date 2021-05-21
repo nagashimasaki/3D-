@@ -431,7 +431,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 6, z: 10}
+  m_Size: {x: 18, y: 6, z: 18}
   m_Center: {x: 0, y: -3.5, z: 0}
 --- !u!114 &6602475412942766165
 MonoBehaviour:
@@ -446,6 +446,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleSE: {fileID: 8300000, guid: 09d1b46b2964a024bb909c91837f59a9, type: 3}
+  randomMovingPercentObstacle: 50
+  duration: 3
+  durationRange: {x: 2, y: 5}
+  moveDistance: 5
+  isMoveing: 1
+  moveDistanceRange: {x: 3, y: 8}
+  obstacleFlowerSizes:
+  - 1.5
+  - 0.75
+  - 0.5
 --- !u!1 &6602475413930964377
 GameObject:
   m_ObjectHideFlags: 0

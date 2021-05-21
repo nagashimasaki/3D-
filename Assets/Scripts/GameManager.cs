@@ -35,8 +35,26 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("大きさが変化する花輪の割合"), Range(0, 100)]
     private int scalingFlowerCirclePercent;
 
+    [SerializeField, Header("移動する障害物の割合"), Range(0, 100)]
+    private int movingObstacleFlowerPercent;
+
+    [SerializeField, Header("大きさが変化する障害物の割合"), Range(0, 100)]
+    private int scalingObstacleFlowerPercent;
+
+    [SerializeField, Header("移動するアイテムの割合"), Range(0, 100)]
+    private int movingItemTrampolinePercent;
+
+    [SerializeField, Header("大きさが変化するアイテムの割合"), Range(0, 100)]
+    private int scalingItemTrampolinePercent;
+
     [SerializeField]
     private FlowerCircle flowerCirclePrefab;　　　　// 花輪のプレファブ・ゲームオブジェクトにアタッチされている FlowerCircle スクリプトをアサインする(同じプレファブ)
+
+    [SerializeField]
+    private ObstacleFlower obstacleFlowerPrefab;      // 障害物のプレファブ・ゲームオブジェクトにアタッチされている ObstacleFlower スクリプトをアサインする(同じプレファブ)
+
+    [SerializeField]
+    private ItemTrampoline itemTrampolinePrefab;
 
     [SerializeField]
     private Transform limitLeftBottom;　　　　　　　// キャラの移動制限用のオブジェクトを生成位置の制限にも利用する
@@ -120,11 +138,11 @@ public class GameManager : MonoBehaviour
         // Updateを止める
         isGoal = true;
 
-        // 花輪をランダムで配置する場合
+        // 花輪、障害物、アイテムをランダムで配置する場合
         if (isRandomStaging)
         {
 
-            // 花輪の生成処理を行う。この処理が終了するまで、次の処理を中断する
+            // 花輪、障害物、アイテムの生成処理を行う。この処理が終了するまで、次の処理を中断する
             yield return StartCoroutine(CreateRandomStage());
         }
 
@@ -145,10 +163,18 @@ public class GameManager : MonoBehaviour
 
         // 花輪の高さのスタート位置
         float flowerHeight = goal.position.y;
+        // 障害物の高さのスタート位置
+        float obstacleflowerHeight = goal.position.y;
+        // アイテムの高さのスタート位置
+        float itemTrampolineHeight = goal.position.y;
 
-        // 花輪を生成した数
+
+        // 花輪と障害物、アイテムを生成した数
         int count = 0;
         Debug.Log("初期の花輪のスタート位置 : " + flowerHeight);
+        Debug.Log("初期の障害物のスタート位置 : " + obstacleflowerHeight);
+        Debug.Log("初期のアイテムのスタート位置 : " + itemTrampolineHeight);
+
 
         // 花輪の高さがキャラの位置に到達するまで、ループ処理を行って花輪を生成する。キャラの位置に到達したらループを終了する
         while (flowerHeight <= player.transform.position.y)
@@ -169,6 +195,54 @@ public class GameManager : MonoBehaviour
             count++;
 
             Debug.Log("花輪の合計生成数 : " + count);
+
+            // 1フレームだけ中断。　　※　この処理を入れないと無限ループしてUnityがフリーズします。
+            yield return null;
+        }
+
+        // 障害物の高さがキャラの位置に到達するまで、ループ処理を行って障害物を生成する。キャラの位置に到達したらループを終了する
+        while (obstacleflowerHeight <= player.transform.position.y)
+        {
+
+            // 花輪の高さを加算(float 型の Random.Range メソッドは 10.0f を含む)
+            obstacleflowerHeight += Random.Range(5.0f, 10.0f);
+
+            Debug.Log("現在の障害物の生成位置 : " + obstacleflowerHeight);
+
+            // 花輪の位置を設定して生成
+            ObstacleFlower obstacleFlower = Instantiate(obstacleFlowerPrefab, new Vector3(Random.Range(limitLeftBottom.position.x, limitRightTop.position.x), obstacleflowerHeight, Random.Range(limitLeftBottom.position.z, limitRightTop.position.z)), Quaternion.identity);
+
+            // 花輪の初期設定を呼び出す。引数には評価後の戻り値を利用する。このとき、移動するかどうか、大きさを変えるかどうかの情報を引数として渡す
+            obstacleFlower.SetUpMovingObstacleFlower(Random.Range(0, 100) <= movingObstacleFlowerPercent, Random.Range(0, 100) <= scalingObstacleFlowerPercent);
+
+            // 花輪の生成数を加算
+            count++;
+
+            Debug.Log("障害物の合計生成数 : " + count);
+
+            // 1フレームだけ中断。　　※　この処理を入れないと無限ループしてUnityがフリーズします。
+            yield return null;
+        }
+
+        // 障害物の高さがキャラの位置に到達するまで、ループ処理を行って障害物を生成する。キャラの位置に到達したらループを終了する
+        while (itemTrampolineHeight <= player.transform.position.y)
+        {
+
+            // 花輪の高さを加算(float 型の Random.Range メソッドは 10.0f を含む)
+            itemTrampolineHeight += Random.Range(5.0f, 10.0f);
+
+            Debug.Log("現在のアイテムの生成位置 : " + itemTrampolineHeight);
+
+            // 花輪の位置を設定して生成
+            ItemTrampoline itemTrampoline = Instantiate(itemTrampolinePrefab, new Vector3(Random.Range(limitLeftBottom.position.x, limitRightTop.position.x), itemTrampolineHeight, Random.Range(limitLeftBottom.position.z, limitRightTop.position.z)), Quaternion.identity);
+
+            // 花輪の初期設定を呼び出す。引数には評価後の戻り値を利用する。このとき、移動するかどうか、大きさを変えるかどうかの情報を引数として渡す
+            itemTrampoline.SetUpMovingTrampoline(Random.Range(0, 100) <= movingItemTrampolinePercent, Random.Range(0, 100) <= scalingItemTrampolinePercent);
+
+            // 花輪の生成数を加算
+            count++;
+
+            Debug.Log("アイテムの合計生成数 : " + count);
 
             // 1フレームだけ中断。　　※　この処理を入れないと無限ループしてUnityがフリーズします。
             yield return null;

@@ -764,6 +764,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1103460225}
     m_Modifications:
+    - target: {fileID: 6602475412942766165, guid: c4251cd204b8896419cce629ecc418a5,
+        type: 3}
+      propertyPath: duration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602475412942766165, guid: c4251cd204b8896419cce629ecc418a5,
+        type: 3}
+      propertyPath: randomMovingPercentObstacle
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6602475413930964373, guid: c4251cd204b8896419cce629ecc418a5,
         type: 3}
       propertyPath: m_Name
@@ -998,7 +1008,7 @@ PrefabInstance:
     - target: {fileID: 674779778529561975, guid: 3a8607b14789ec0458f5b365f41f97de,
         type: 3}
       propertyPath: isMoveing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a8607b14789ec0458f5b365f41f97de, type: 3}
@@ -3382,7 +3392,15 @@ MonoBehaviour:
   isRandomStaging: 1
   movingFlowerCirclePercent: 50
   scalingFlowerCirclePercent: 50
+  movingObstacleFlowerPercent: 50
+  scalingObstacleFlowerPercent: 50
+  movingItemTrampolinePercent: 50
+  scalingItemTrampolinePercent: 50
   flowerCirclePrefab: {fileID: 674779778529561975, guid: 3a8607b14789ec0458f5b365f41f97de,
+    type: 3}
+  obstacleFlowerPrefab: {fileID: 6602475412942766165, guid: c4251cd204b8896419cce629ecc418a5,
+    type: 3}
+  itemTrampolinePrefab: {fileID: 8781533563508476667, guid: 815e2c7bc7178834e9ed24b89078cfcc,
     type: 3}
   limitLeftBottom: {fileID: 1812836302}
   limitRightTop: {fileID: 109761844}
@@ -5390,63 +5408,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957114469}
   m_CullTransparentMesh: 0
---- !u!1001 &1963238788
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1755522722992770, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_Name
-      value: 'Trampoline '
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311916672380040, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 18353bbdf23cf024cb6e7ccbf0f18af6, type: 3}
 --- !u!1001 &2016946134
 PrefabInstance:
   m_ObjectHideFlags: 0
