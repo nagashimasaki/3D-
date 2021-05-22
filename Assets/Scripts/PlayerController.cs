@@ -110,8 +110,12 @@ public class PlayerController : MonoBehaviour
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
 
-        // velocity(速度)に新しい値を代入して移動
-        rb.velocity = new Vector3(x * moveSpeed, -fallSpeed, z * moveSpeed);
+        if(rb != null)
+        {
+            // velocity(速度)に新しい値を代入して移動
+            rb.velocity = new Vector3(x * moveSpeed, -fallSpeed, z * moveSpeed);
+        }
+        
     }
 
     // IsTriggerがオンのコライダーを持つゲームオブジェクトを通過した場合に呼び出されるメソッド
